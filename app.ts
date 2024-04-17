@@ -30,7 +30,7 @@ amqplib.connect("amqp://18.209.192.241/", function (error0, connection) {
             headers,
           };
           const result = await fetch(
-            "http://localhost:3000/api/logs",
+            "http://34.239.65.110:3000/api/logs",
             req
           );
           const data = await result.json();
