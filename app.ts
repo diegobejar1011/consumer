@@ -9,7 +9,7 @@ amqplib.connect("amqp://18.209.192.241/", function (error0, connection) {
     if (error1) {
       throw error1;
     }
-    var queue = "log";
+    var queue = "base";
 
     channel.assertQueue(queue, {
       durable: true,
@@ -20,25 +20,25 @@ amqplib.connect("amqp://18.209.192.241/", function (error0, connection) {
       queue,
       async function (msg : any) {
         console.log(" [x] Received %s", msg.content.toString());
-        try {
-          const headers = {
-            "Content-Type": "application/json",
-          };
-          const req = {
+         try {
+           const headers = {
+             "Content-Type": "application/json",
+           };
+           const req = {
             method: "POST",
-            body: msg.content.toString(),
-            headers,
-          };
-          const result = await fetch(
-            "http://34.239.65.110:3000/api/logs",
-            req
-          );
-          const data = await result.json();
-          console.log(data);
-          console.log(JSON.parse(msg.content.toString()));
-        } catch (error: any) {
-          throw new Error(error.message);
-        }
+             body: msg.content.toString(),
+             headers,
+           };
+           const result = await fetch(
+             "http://52.202.40.9:4000/api/payment",
+             req
+           );
+           const data = await result.json();
+           console.log(data);
+           console.log(JSON.parse(msg.content.toString()));
+         } catch (error: any) {
+           throw new Error(error.message);
+         }
       },
       {
         noAck: true,
